@@ -1,0 +1,1 @@
+import{u as e,j as a,H as t,a as r}from"./index-Cl2R3iKS.js";function o(){const[s]=e();return a.jsxs(a.Fragment,{children:[a.jsx(t,{t:"Apply now",sub:"Share your details and our team will confirm eligibility and batch dates."}),a.jsx("section",{className:"wrap sec",children:a.jsx(r,{course:s.get("course")||"",title:"Start your application"})})]})}export{o as Apply,o as default};

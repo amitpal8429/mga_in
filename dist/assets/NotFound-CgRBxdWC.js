@@ -1,0 +1,1 @@
+import{j as s,L as e}from"./index-Cl2R3iKS.js";function r(){return s.jsx("section",{className:"wrap sec",children:s.jsxs("p",{className:"notice",children:["That page doesn't exist. ",s.jsx(e,{to:"/courses",children:"Browse programs"})," or ",s.jsx(e,{to:"/",children:"go home"}),"."]})})}export{r as default};
