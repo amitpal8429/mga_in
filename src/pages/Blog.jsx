@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchPosts } from "../lib/api";
+// 👇 Canonical Hook Import 👇
+import useCanonical from "../hooks/useCanonical";
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // 👇 Canonical & SEO Tags 👇
+  useCanonical({
+    title: "Latest Medical Blogs | Medical Global Academy",
+    description: "Read the latest medical articles, guides, and case studies on our blog. Stay updated with clinical insights from Medical Global Academy.",
+  });
 
   useEffect(() => {
     fetchPosts()
@@ -34,9 +42,11 @@ export default function Blog() {
             const postDate = new Date(post.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
             return (
-              <div key={post.id} style={{ backgroundColor: "#fff", borderRadius: "12px", overflow: "hidden", boxShadow: "0 4px 15px rgba(0,0,0,0.05)", display: "flex", flexDirection: "column", border: "1px solid #eaeaea", transition: "transform 0.3s ease, boxShadow 0.3s ease" }}
+              <div 
+                key={post.id} 
+                style={{ backgroundColor: "#fff", borderRadius: "12px", overflow: "hidden", boxShadow: "0 4px 15px rgba(0,0,0,0.05)", display: "flex", flexDirection: "column", border: "1px solid #eaeaea", transition: "transform 0.3s ease, boxShadow 0.3s ease" }}
                 onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-5px)"; e.currentTarget.style.boxShadow = "0 8px 25px rgba(0,0,0,0.1)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.05)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.05)"; }} 
               >
                 <div style={{ height: "200px", overflow: "hidden" }}>
                   <img src={imageUrl} alt="cover" style={{ width: "100%", height: "100%", objectFit: "cover" }} />

@@ -4,25 +4,33 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { NAV, SITE } from "../config/site";
 import { useAuth } from "../auth/AuthContext";
 import LeadForm from "./LeadForm";
+import OfferPopup from "./OfferPopup";
 
 const LOGO_URL =
   "https://medicalglobalacademy.com/wp-content/uploads/2026/08/logo_new.png";
+
+// 🔴 CHANGE THIS URL to your actual uploaded .exe file link on Hostinger
+const DOWNLOAD_URL = "https://medicalglobalacademy.in/downloads/MGA-Setup.exe";
 
 const label = (l) => (l === "Programs" ? "Courses" : l);
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [leadOpen, setLeadOpen] = useState(false);
+  const [showFormDirectly, setShowFormDirectly] = useState(false);
+  
   const { user, logout } = useAuth();
   const location = useLocation();
 
   const openLead = () => {
     setOpen(false);
+    setShowFormDirectly(true); 
     setLeadOpen(true);
   };
 
   const closeLead = () => {
     setLeadOpen(false);
+    setTimeout(() => setShowFormDirectly(false), 300); 
     sessionStorage.setItem(`lead_popup_closed_${location.pathname}`, "true");
   };
 
@@ -31,6 +39,7 @@ export default function Navbar() {
     const isClosed = sessionStorage.getItem(`lead_popup_closed_${location.pathname}`);
     if (!isClosed) {
       const timer = setTimeout(() => {
+        setShowFormDirectly(false); 
         setLeadOpen(true);
       }, 2000);
       return () => clearTimeout(timer);
@@ -74,15 +83,24 @@ export default function Navbar() {
         </button>
 
         <nav className={open ? "open" : ""} onClick={() => setOpen(false)}>
-          {/* Existing Config Links */}
           {NAV.map(([t, l]) => (
             <NavLink key={t} to={t}>
               {label(l)}
             </NavLink>
           ))}
 
-          {/* NAYA BLOG LINK YAHAN ADD KIYA GAYA HAI */}
           <NavLink to="/blog">Blog</NavLink>
+
+          {/* 👇 NEW DESKTOP DOWNLOAD BUTTON ADDED HERE 👇 */}
+          <a 
+            href={DOWNLOAD_URL} 
+            download 
+            className="btn sm" 
+            style={{ marginRight: "10px", backgroundColor: "#c8a032", color: "#fff" }}
+          >
+            Download App
+          </a>
+          {/* 👆 NEW DESKTOP DOWNLOAD BUTTON ADDED HERE 👆 */}
 
           {user ? (
             <span className="nav-user">
@@ -174,7 +192,11 @@ export default function Navbar() {
                 ✕
               </button>
 
-              <LeadForm title="Get curriculum and fees" />
+              {showFormDirectly ? (
+                <LeadForm title="Get curriculum and fees" />
+              ) : (
+                <OfferPopup onClaim={() => setShowFormDirectly(true)} />
+              )}
             </div>
           </div>,
           document.body

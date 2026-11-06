@@ -3,9 +3,19 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { fetchCourses, fetchCourse, fetchFaculty, WHATSAPP, inr, months, clean, typeLabel } from "../lib/api";
 import { useLoad, wa, Head, Status, Card, Person, Faq, FAQS, Field } from "../components/ui";
 import LeadForm from "../components/LeadForm";
+// 👇 Canonical Hook Import 👇
+import useCanonical from "../hooks/useCanonical";
+
 export function Courses() {
   const s = useLoad(fetchCourses); const [sp, setSp] = useSearchParams();
   const type = sp.get("type") || "All", q = sp.get("q") || ""; const [sort, setSort] = useState("name");
+
+  // 👇 Canonical & SEO Tags Add Kiye 👇
+  useCanonical({
+    title: "All Medical Courses & Programs | Medical Global Academy",
+    description: "Explore fellowships, PG diplomas, and certificate courses for doctors. Find the right program to advance your clinical career.",
+  });
+
   const set = (k, v) => { const n = new URLSearchParams(sp); v && v !== "All" ? n.set(k, v) : n.delete(k); setSp(n); };
   const list = useMemo(() => (s.data || []).filter((c) => (type === "All" || c.type === type) && (c.name + clean(c.description)).toLowerCase().includes(q.toLowerCase()))
     .sort((a, b) => sort === "fee" ? a.fee - b.fee : sort === "new" ? new Date(a.start_date) - new Date(b.start_date) : a.name.localeCompare(b.name)), [s.data, type, q, sort]);

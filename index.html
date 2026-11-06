@@ -10,9 +10,121 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet"/>
+
+<!-- SCHEMA: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://medicalglobalacademy.in/#website",
+  "url": "https://medicalglobalacademy.in/",
+  "name": "Medical Global Academy India",
+  "description": "Online medical education platform offering Fellowship, PG Diploma and Certificate programs for MBBS, MD, MS and other eligible medical professionals in India",
+  "inLanguage": "en-IN",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Doctors in India",
+    "geographicArea": { "@type": "Country", "name": "India" }
+  },
+  "publisher": { "@id": "https://medicalglobalacademy.in/#organization" },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://medicalglobalacademy.in/courses?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SCHEMA: Organization + EducationalOrganization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization", "EducationalOrganization"],
+  "@id": "https://medicalglobalacademy.in/#organization",
+  "name": "Medical Global Academy",
+  "alternateName": ["MGA", "Medical Global Academy India"],
+  "url": "https://medicalglobalacademy.in/",
+  "logo": {
+    "@type": "ImageObject",
+    "@id": "https://medicalglobalacademy.in/#logo",
+    "url": "https://medicalglobalacademy.com/wp-content/uploads/2026/08/logo_new.png",
+    "contentUrl": "https://medicalglobalacademy.com/wp-content/uploads/2026/08/logo_new.png"
+  },
+  "image": { "@id": "https://medicalglobalacademy.in/#logo" },
+  "description": "Medical Global Academy is an online medical education platform offering Fellowship, PG Diploma and Certificate programs for eligible doctors and medical professionals in India.",
+  "founder": { "@type": "Person", "name": "Manav Tyagi" },
+  "telephone": "+91-9289994218",
+  "email": "support@medicalglobalacademy.com",
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91-9289994218",
+      "contactType": "admissions",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Hindi"]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+91-9289994218",
+      "contactType": "customer support",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Hindi"]
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Plot No. 159, Pandav Nagar",
+    "addressLocality": "Ghaziabad",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "201005",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.facebook.com/medicalglobalacademy1/",
+    "https://www.instagram.com/medicalglobalacademy/",
+    "https://www.linkedin.com/company/medical-global-academy/",
+    "https://www.youtube.com/@MedicalGlobalAcademy",
+    "https://x.com/MGA_Courses",
+    "https://medicalglobalacademy.com/"
+  ],
+  "knowsAbout": [
+    "Medical Education",
+    "Medical Fellowship Programs",
+    "PG Diploma Programs",
+    "Continuing Medical Education",
+    "Healthcare Training",
+    "Medical Certification Courses"
+  ],
+  "areaServed": { "@type": "Country", "name": "India" },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Medical Global Academy Programs in India",
+    "itemListElement": [
+      { "@type": "Course", "name": "Certificate in Family Medicine", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "Certificate in Rheumatology", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "Certificate in Internal Medicine", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "Fellowship in Urology", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "Fellowship in Hematology", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "Fellowship in Internal Medicine", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "PG Diploma in Cosmetology", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "PG Diploma in Otorhinolaryngology", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "PG Diploma in Internal Medicine", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "PG Diploma in Nephrology", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "PG Diploma in Tuberculosis", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } },
+      { "@type": "Course", "name": "PG Diploma in Reproductive Child Health", "courseMode": "online", "provider": { "@id": "https://medicalglobalacademy.in/#organization" } }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 <div id="root"></div>
 <script type="module" src="/src/main.jsx"></script>
+
+<!-- Dynamic schema: Course, FAQ, Breadcrumb, Image, WebPage -->
+<script src="/mga-schema.js"></script>
 </body>
 </html>

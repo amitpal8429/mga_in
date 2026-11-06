@@ -8,18 +8,17 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home";
 import { STATIC_PATHS } from "./config/site";
 import { WHATSAPP } from "./lib/api";
+import SupportWidget from "./components/SupportWidget"; // 👈 Naya widget import kiya
 
-// Naye pages (Blog, BlogDetail) yahan add kar diye gaye hain
-const L = Object.fromEntries(["Courses","Faculty","About","Accreditation","Contact","Apply","FaqPage","Legal","Detail","Login","Signup","Dashboard","Sitemap","NotFound","Blog","BlogDetail"]
+const L = Object.fromEntries(["Courses","Faculty","About","Accreditation","Contact","Apply","FaqPage","Legal","Detail","Login","Signup","Dashboard","Sitemap","NotFound","Blog","BlogDetail","Checkout"]
   .map((n) => [n, lazy(() => import(`./pages/${n}.jsx`))]));
 
-// Old URLs (/slug and /programs/slug) move to /courses/slug
 const CourseRedirect = () => { const { slug } = useParams(); return <Navigate to={`/courses/${slug}`} replace />; };
 const OldCourse = () => { const { slug } = useParams(); return <Navigate to={`/courses/${slug}`} replace />; };
 
 export default function App() {
   const { pathname } = useLocation();
-  const showLead = STATIC_PATHS.includes(pathname); // same lead form on every content page; course pages carry it in the sidebar
+  const showLead = STATIC_PATHS.includes(pathname); 
   
   return (<>
     <ScrollToTop /><Navbar />
@@ -33,7 +32,8 @@ export default function App() {
       <Route path="/refund" element={<L.Legal k="refund" />} />
       <Route path="/sitemap" element={<L.Sitemap />} />
       
-      {/* BLOG ROUTES YAHAN ADD KIYE GAYE HAIN */}
+      <Route path="/checkout" element={<L.Checkout />} />
+
       <Route path="/blog" element={<L.Blog />} />
       <Route path="/blog/:slug" element={<L.BlogDetail />} />
       
@@ -45,6 +45,8 @@ export default function App() {
       <div><h2>Talk to an admissions counsellor</h2><p>Share your details and we'll send the curriculum, fees and next batch dates on WhatsApp.</p></div>
       <LeadForm title="Request a call back" /></div></section>}
     <Footer />
-    <a className="wa" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+    
+    {/* 👇 Purane <a className="wa"> ko hata kar ye laga diya hai */}
+    <SupportWidget />
   </>);
 }

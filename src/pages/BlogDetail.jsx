@@ -1,11 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchPostBySlug } from "../lib/api";
+// 👇 Canonical Hook Import 👇
+import useCanonical from "../hooks/useCanonical";
 
 export default function BlogDetail() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // 👇 Canonical & SEO Tags (Dynamic) 👇
+  // Hook ko early return se PEHLE call karna zaroori hai
+  useCanonical({
+    title: post ? `${post.title.rendered.replace(/<[^>]+>/g, '')} | MGA Blog` : "Loading... | MGA Blog",
+    description: post 
+      ? post.excerpt.rendered.replace(/<[^>]+>/g, '').substring(0, 160) 
+      : "Read the latest medical articles from Medical Global Academy.",
+  });
 
   useEffect(() => {
     fetchPostBySlug(slug)
@@ -25,15 +36,39 @@ export default function BlogDetail() {
   }
 
   return (
-    <div className="wrap sec" style={{ maxWidth: "800px", margin: "0 auto", padding: "40px 20px" }}>
-      <Link to="/blog" style={{ display: "inline-block", marginBottom: "20px", color: "#0066cc", textDecoration: "none", fontWeight: "600" }}>&larr; Back to Blogs</Link>
+    <div style={{ width: "100%", backgroundColor: "#fff", display: "flex", justifyContent: "center", padding: "40px 0" }}>
       
-      <h1 style={{ fontSize: "2.5rem", marginBottom: "10px", fontWeight: "bold" }} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-      <p style={{ color: "#666", marginBottom: "20px" }}>Published on: {new Date(post.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</p>
-      
-      {imageUrl && <img src={imageUrl} alt="cover" style={{ width: "100%", maxHeight: "400px", objectFit: "cover", borderRadius: "10px", marginBottom: "30px" }} />}
+      <div style={{ width: "100%", maxWidth: "1100px", padding: "0 20px" }}>
+        
+        <Link to="/blog" style={{ display: "inline-block", marginBottom: "20px", color: "#0066cc", textDecoration: "none", fontWeight: "600", fontSize: "1.1rem" }}>&larr; Back to Blogs</Link>
+        
+        <h1 style={{ fontSize: "3.2rem", marginBottom: "15px", fontWeight: "bold", lineHeight: "1.2", color: "#0a2540" }} dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+        
+        <p style={{ color: "#666", marginBottom: "30px", fontSize: "1.1rem" }}>Published on: {new Date(post.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</p>
+        
+        {imageUrl && <img src={imageUrl} alt="cover" style={{ width: "100%", maxHeight: "500px", objectFit: "cover", borderRadius: "10px", marginBottom: "40px" }} />}
 
-      <div className="wp-content" style={{ lineHeight: "1.8", fontSize: "1.1rem" }} dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+        <div 
+          className="wp-content" 
+          style={{ 
+            lineHeight: "1.8", 
+            fontSize: "1.25rem",
+            color: "#333",
+            textAlign: "left",
+            width: "100%"
+          }} 
+          dangerouslySetInnerHTML={{ __html: post.content.rendered }} 
+        />
+        
+        <style>{`
+          .wp-content h2 { font-size: 2.5rem; color: #0a2540; margin-top: 40px; margin-bottom: 20px; }
+          .wp-content h3 { font-size: 2rem; color: #0a2540; margin-top: 30px; margin-bottom: 15px; }
+          .wp-content p { margin-bottom: 20px; }
+          .wp-content ul, .wp-content ol { margin-bottom: 20px; padding-left: 20px; }
+          .wp-content li { margin-bottom: 10px; }
+        `}</style>
+        
+      </div>
     </div>
   );
 }

@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchCourses, fetchFaculty, typeLabel } from "../lib/api";
 import { useLoad, Status, Card, Person } from "../components/ui";
+// SCHEMA: homepage WebPage schema
+import { useHomeSchema } from "../seo/useMgaSchema";
+// 👇 Canonical Hook Import 👇
+import useCanonical from "../hooks/useCanonical"; 
 
 const LEVELS = [
   ["Fellowship", "12 months", "Advanced, specialty-level training for experienced clinicians."],
@@ -27,7 +31,16 @@ export default function Home() {
   const s = useLoad(fetchCourses), f = useLoad(fetchFaculty);
   const nav = useNavigate();
   const [q, setQ] = useState(""), [t, setT] = useState("");
-  
+
+  // 👇 Canonical & SEO Tags Add Kiye 👇
+  useCanonical({
+    title: "Medical Global Academy | Best Online Medical Courses",
+    description: "Advance your clinical career with online fellowships, PG diplomas, and certificate courses for doctors. CPD and ACTD aligned certification.",
+  });
+
+  // SCHEMA: adds WebPage JSON-LD on the homepage
+  useHomeSchema();
+
   const count = (x) => s.data?.filter((c) => c.type === x).length ?? "";
   const totalCourses = s.data?.length || "308";
   const fellowshipCount = count("Fellowship") || "203";
@@ -48,7 +61,7 @@ export default function Home() {
             <div className="row">
               <Link className="btn" to="/courses">Explore programs</Link>
             </div>
-            
+
             <div
               style={{
                 display: "flex",
@@ -58,7 +71,7 @@ export default function Home() {
                 marginTop: "40px",
                 paddingTop: "30px",
                 borderTop: "1px solid rgba(255,255,255,0.15)",
-                color: "#fff", 
+                color: "#fff",
                 fontSize: "1.1rem",
               }}
             >
@@ -83,7 +96,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           <form
             className="finder"
             onSubmit={(e) => {
@@ -124,12 +137,12 @@ export default function Home() {
         </div>
         <div className="tiles">
           {LEVELS.map(([x, d, p]) => (
-            <Link 
-              key={x} 
-              to={`/courses?type=${x}`} 
-              className="tile" 
-              style={{ 
-                position: "relative", 
+            <Link
+              key={x}
+              to={`/courses?type=${x}`}
+              className="tile"
+              style={{
+                position: "relative",
                 overflow: "hidden",
                 backgroundColor: "#11223f",
                 minHeight: "220px",
@@ -157,7 +170,7 @@ export default function Home() {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }} />
-                
+
                 <div style={{
                   position: "absolute",
                   inset: 0,

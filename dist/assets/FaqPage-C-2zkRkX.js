@@ -1,1 +1,0 @@
-import{j as s,H as a,n as e}from"./index-Cl2R3iKS.js";const t=()=>s.jsxs(s.Fragment,{children:[s.jsx(a,{t:"Frequently asked questions"}),s.jsx("section",{className:"wrap sec narrow",children:s.jsx(e,{})})]});export{t as FaqPage,t as default};
